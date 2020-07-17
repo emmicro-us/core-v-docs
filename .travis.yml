@@ -2,7 +2,8 @@ language: python
 sudo: required
 dist: trusty
 before_install:
-  - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended latexmk inkscape
+  - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended latexmk
+  - sudo add-apt-repository -y ppa:inkscape.dev/stable sudo apt-get -q update && sudo apt-get -y install inkscape
 
 install:
   - pip install -r requirements.txt
