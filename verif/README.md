@@ -33,7 +33,7 @@ The template used for this project attempts to provide an easy-to-use format to 
 ## HOWTO: The CORE-V Verification Plan Template
 The following sub-sections explain each of the columns in the [template spreadsheet](https://github.com/openhwgroup/core-v-docs/blob/master/verif/CV32E40P/VerificationPlan/CORE-V_VerifPlan_Template.xlsx).
 ### Requirement Location
-This is a pointer to the source Requirements document of the Features in question.  It can be a standards document, such as the RISC-V ISA, or a micro-architecture specification.   The CV32E40P [introduction](https://github.com/openhwgroup/core-v-docs/blob/master/cores/cv32e40p/introduction.rst) lists sources of [documentation](https://github.com/openhwgroup/core-v-docs/blob/master/cores/cv32e40p/introduction.rst#standards-compliance) relevant to the CV32E40P.  _Every item in a Verification Plan must be attributed to one or more of these sources_.  Please also include a chapter or section number.  Note that if you are using the [CV32E40P User Manual](https://core-v-docs-verif-strat.readthedocs.io/projects/cv32e40p_um/en/latest/) as a reference, you **must** provide a release/version number as well since this document is currently in active development.
+This is a pointer to the source Requirements document of the Features in question.  It can be a standards document, such as the RISC-V ISA, or a micro-architecture specification.   The CV32E40P [introduction](https://github.com/openhwgroup/core-v-docs/blob/master/cores/cv32e40p/user_manual/source/intro.rst) lists sources of [documentation](https://github.com/openhwgroup/core-v-docs/blob/master/cores/cv32e40p/user_manual/source/intro.rst#standards-compliance) relevant to the CV32E40P.  _Every item in a Verification Plan must be attributed to one or more of these sources_.  Please also include a chapter or section number.  Note that if you are using the [CV32E40P User Manual](https://core-v-docs-verif-strat.readthedocs.io/projects/cv32e40p_um/en/latest/) as a reference, you **must** provide a release/version number as well since this document is currently in active development.
 ### Feature
 The high-level feature you are trying to verify.  For example, RV32I Register-Immediate Instructions.  In some cases, it may be natural to use the section header name of the reference document.
 ### Sub-Feature
@@ -53,7 +53,9 @@ Here we attempt to answer the question, "how will the testbench know the test pa
 * **Check against ISS**: Here, the testcase does not "know" the correct outcome of the test, it merely provides stimulus to the DUT.  The pass/fail criteria is determined a verification environment (testbench) component, in this case the **_Instruction Set Simulator_** (ISS), and the verification environment must compare the actual results from the DUT and the expected results from the ISS (or other reference model). When practical, this is the preferred approach because it makes testcase maintenance simplier.
 * **Check against RM**: The pass/fail criteria is determined by a **_Reference Model_** (RM).  An RM is a verification environment (testbench) component which models some or all of the DUT behavior.  In this context RM is a more generic term for ISS.  Use this criteria when you suspect that the ISS will not model the specific behavior needed.
 * **Assertion Check**: Failure is detected by an assertion, typically coded in SVA.
+* **Any/All**: Any (or all) of the above pass/fail criteria can be reasonably assumed to catch a non-compliance of a specific feature/requirement.
 * **Other**: If one of the above Pass/Fail Criteria does not fit your needs, specify it here.
+* **N/A**: Select this for those (rare) features in the specification do not have side effects that are observable in a functional simulation of an RTL model.
 ### Test Type
 Choose one or more of the following:
 * **RISC-V Compliance**: a self-checking ISA compliance testcase from the RISC-V Foundation.
@@ -61,6 +63,7 @@ Choose one or more of the following:
 * **Directed Self-Checking**: a directed (non-random) self-checking testcase from the OpenHW Group that is not specifically targetting ISA compliance.
 * **Directed Non-Self-Checking**: a directed (non-random) non-self-checking testcase from the OpenHW Group that is not specifically targetting ISA compliance.  Note that these tests assume that the pass/fail criteria will be "Check against ISS" (or other reference model).
 * **Constrained-Random**: a constrained-random testcase.  Typically the stimulus for these will come from the Google random instruction stream generator.  Note that by defintion these tests cannot be self-checking.
+* **ENV capability, not specific test**: Often, a specific feature is not specifically covered by a specific test or check.  For example, an assertion checking for bus protocol errors could reasonably expect to cause a failure with any type of test.
 * **Other**: If one of the above Test Types does not fit your needs, specify it here.
 ### Coverage Method
 How will we know that the Feature is verified (covered)?  There are several choices here:
